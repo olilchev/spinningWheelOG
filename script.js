@@ -1,3 +1,4 @@
+
 /* --------------- Spin Wheel  --------------------- */
 const spinWheel = document.getElementById("spinWheel");
 const spinBtn = document.getElementById("spin_btn");
@@ -78,10 +79,30 @@ const generateValue = (angleValue) => {
 /* --------------- Spinning Code --------------------- */
 let count = 0;
 let resultValue = 101;
+let countClicks = 0
+let degree = 0
+let degreeArray = []
+
 spinBtn.addEventListener("click", () => {
   spinBtn.disabled = true;
   text.innerHTML = `<p>Късмет!</p>`;
+  countClicks++
   let randomDegree = Math.floor(Math.random() * (355 - 0 + 1) + 0);
+  if (countClicks == 3 || countClicks == 5) {
+    degree = degreeArray[0]
+  } else if (countClicks == 4) {
+    degree = degreeArray[1]
+  } else {
+    degree = randomDegree
+  }
+ 
+  if (degreeArray.length >= 11) {
+    degreeArray = []
+    countClicks = 1
+  }
+  degreeArray.push(degree)
+  console.log(degreeArray)
+
   let rotationInterval = window.setInterval(() => {
     spinChart.options.rotation = spinChart.options.rotation + resultValue;
     spinChart.update();
@@ -89,8 +110,8 @@ spinBtn.addEventListener("click", () => {
       count += 1;
       resultValue -= 5;
       spinChart.options.rotation = 0;
-    } else if (count > 15 && spinChart.options.rotation == randomDegree) {
-      generateValue(randomDegree);
+    } else if (count > 15 && spinChart.options.rotation == degree) {
+      generateValue(degree);
       clearInterval(rotationInterval);
       count = 0;
       resultValue = 101;
