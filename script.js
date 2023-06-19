@@ -95,6 +95,7 @@ spinBtn.addEventListener("click", () => {
   } else {
     degree = randomDegree
   }
+
  
   if (degreeArray.length >= 11) {
     degreeArray = []
@@ -116,6 +117,6 @@ spinBtn.addEventListener("click", () => {
       count = 0;
       resultValue = 101;
     }
-  }, 10);
+  }, 13);
 });
 /* --------------- End Spin Wheel  --------------------- */
